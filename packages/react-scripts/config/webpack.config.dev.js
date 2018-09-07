@@ -234,7 +234,10 @@ module.exports = {
                   // @remove-on-eject-begin
                   babelrc: false,
                   // @remove-on-eject-end
-                  presets: [require.resolve('babel-preset-react-app')],
+                  // presets: [require.resolve('babel-preset-react-app')],
+                  presets: ['env', 'react', 'stage-2'].map(preset =>
+                    require.resolve(`babel-preset-${preset}`)
+                  ),
                   plugins: [
                     [
                       require.resolve('babel-plugin-named-asset-import'),
@@ -245,6 +248,16 @@ module.exports = {
                           },
                         },
                       },
+                    ],
+                    [
+                      require.resolve(
+                        'babel-plugin-transform-react-jsx-source'
+                      ),
+                    ],
+                    [
+                      require.resolve(
+                        'babel-plugin-transform-react-stateless-component-name'
+                      ),
                     ],
                   ],
                   // This is a feature of `babel-loader` for webpack (not Babel itself).
